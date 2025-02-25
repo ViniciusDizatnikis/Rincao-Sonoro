@@ -61,7 +61,7 @@ const PasswordPage = () => {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Digite a senha"
           required // Campo obrigatório
-          className="password-input" 
+          className="password-input"
         />
 
         {/* Botão para submeter o formulário */}

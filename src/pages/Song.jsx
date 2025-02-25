@@ -62,16 +62,29 @@ const Song = () => {
     return shuffled;
   };
 
-  const nextSong = () => {
-    const id = songsArray[currentSongIndex + 1]?.id;
-    setCurrentSongIndex(prevIndex => Math.min(prevIndex + 1, songsArray.length - 1));
-    return id;
+  const nextSong = async () => {
+    const nextIndex = currentSongIndex + 1;
+    const nextSongData = songsArray[nextIndex];
+    if (nextIndex < songsArray.length) {
+      const nextSongData = songsArray[nextIndex];
+      const nextArtistData = await getArtistById(nextSongData.artist);
+      setArtistObj(nextArtistData);
+      setCurrentSongIndex(nextIndex);
+    }
+    return nextSongData.id;
   };
 
-  const previousSong = () => {
-    const id = songsArray[currentSongIndex - 1]?.id;
-    setCurrentSongIndex(prevIndex => Math.max(prevIndex - 1, 0));
-    return id;
+  const previousSong = async () => {
+    const prevIndex = currentSongIndex - 1;
+    const prevSongData = songsArray[prevIndex];
+    if (prevIndex >= 0) {
+      const prevSongData = songsArray[prevIndex];
+      const prevArtistData = await getArtistById(prevSongData.artist);
+      setArtistObj(prevArtistData);
+      setCurrentSongIndex(prevIndex);
+    }
+
+    return prevSongData.id;
   };
 
   if (!songObj || !artistObj || loading) {

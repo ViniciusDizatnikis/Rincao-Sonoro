@@ -38,10 +38,10 @@ const SingleItem = ({ id, name, image, artist, idPath, isArtist }) => {
     <Link to={`${idPath}/${id}/${isArtist ? '' : 'all'}`} className="single-item">
       <div className="single-item__div-image-button">
         <div className={isArtist ? "single-item__div-image" : "single-item__div-image--song"}>
-          <img 
-            className="single-item__image" 
-            src={image} 
-            alt={isArtist ? `Imagem do artista: ${name}` : `Capa da música: ${name}`} 
+          <img
+            className="single-item__image"
+            src={image}
+            alt={isArtist ? `Imagem do artista: ${name}` : `Capa da música: ${name}`}
           />
         </div>
         <FontAwesomeIcon className="single-item__icon" icon={faCirclePlay} />

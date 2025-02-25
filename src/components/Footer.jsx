@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"; // Adicionado
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
 
@@ -18,7 +19,7 @@ const Footer = () => {
       </div>
 
       <Link to="/password" className="footer__name">
-      <strong>By</strong> <i>Vinicius Dizatnikis</i>
+        <strong>By</strong> <i>Vinicius Dizatnikis</i>
       </Link>
     </footer>
   );

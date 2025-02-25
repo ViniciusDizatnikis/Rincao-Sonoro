@@ -17,19 +17,19 @@ const timeInSeconds = (timeString) => {
 };
 
 const Player = ({ duration, audio, previousSong, nextSong, disablePrevious, disabledNext, type }) => {
-  const audioPlayer = useRef(null); 
-  const volumePlayer = useRef(null); 
-  const progressPlayer = useRef(null); 
-  const navigate = useNavigate(); 
+  const audioPlayer = useRef(null);
+  const volumePlayer = useRef(null);
+  const progressPlayer = useRef(null);
+  const navigate = useNavigate();
 
   // Estado para controlar o status de reprodução, tempo atual, volume, progresso, etc.
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(formatTime(0)); 
-  const durationInSeconds = timeInSeconds(duration); 
-  const [isChangingTrack, setIsChangingTrack] = useState(false); 
-  const [volume, setVolume] = useState(parseFloat(localStorage.getItem("playerVolume")) || 1); 
-  const [progress, setProgress] = useState(0); 
-  const [isSeeking, setIsSeeking] = useState(false); 
+  const [currentTime, setCurrentTime] = useState(formatTime(0));
+  const durationInSeconds = timeInSeconds(duration);
+  const [isChangingTrack, setIsChangingTrack] = useState(false);
+  const [volume, setVolume] = useState(parseFloat(localStorage.getItem("playerVolume")) || 1);
+  const [progress, setProgress] = useState(0);
+  const [isSeeking, setIsSeeking] = useState(false);
 
   // Efeito para garantir que a música comece a tocar após a troca de faixa
   useEffect(() => {
@@ -51,7 +51,7 @@ const Player = ({ duration, audio, previousSong, nextSong, disablePrevious, disa
   // Efeito para salvar o volume no localStorage e atualizar o volume do player
   useEffect(() => {
     localStorage.setItem("playerVolume", volume);
-    
+
     if (audioPlayer.current) {
       audioPlayer.current.volume = volume;
     }
@@ -64,17 +64,17 @@ const Player = ({ duration, audio, previousSong, nextSong, disablePrevious, disa
   // Função para alternar entre play e pause
   const playPause = () => {
     if (audioPlayer.current) {
-      setIsPlaying((prev) => !prev); 
+      setIsPlaying((prev) => !prev);
     }
   };
 
   // Função para atualizar o tempo e a barra de progresso enquanto a música toca
   const handleTimeUpdate = () => {
     if (audioPlayer.current && !isChangingTrack && !isSeeking) {
-      const current = audioPlayer.current.currentTime; 
-      setCurrentTime(formatTime(current)); 
-      const progressPercentage = (current / durationInSeconds) * 100; 
-      setProgress(progressPercentage); 
+      const current = audioPlayer.current.currentTime;
+      setCurrentTime(formatTime(current));
+      const progressPercentage = (current / durationInSeconds) * 100;
+      setProgress(progressPercentage);
 
       // Atualiza a barra de progresso visualmente
       if (progressPlayer.current) {
@@ -91,10 +91,10 @@ const Player = ({ duration, audio, previousSong, nextSong, disablePrevious, disa
   // Função chamada durante o arrasto da barra de progresso
   const handleSeek = (event) => {
     const newProgress = event.target.value;
-    const newTime = (newProgress / 100) * durationInSeconds; 
+    const newTime = (newProgress / 100) * durationInSeconds;
 
-    setProgress(newProgress); 
-    setCurrentTime(formatTime(newTime)); 
+    setProgress(newProgress);
+    setCurrentTime(formatTime(newTime));
 
     // Atualiza a barra de progresso visualmente
     if (progressPlayer.current) {
@@ -105,11 +105,11 @@ const Player = ({ duration, audio, previousSong, nextSong, disablePrevious, disa
   // Função chamada quando o usuário termina de interagir com a barra de progresso
   const handleSeekEnd = (event) => {
     if (audioPlayer.current) {
-      const newTime = (event.target.value / 100) * durationInSeconds; 
-      audioPlayer.current.currentTime = newTime; 
+      const newTime = (event.target.value / 100) * durationInSeconds;
+      audioPlayer.current.currentTime = newTime;
       setCurrentTime(formatTime(newTime));
-      setProgress(event.target.value); 
-      setIsSeeking(false); 
+      setProgress(event.target.value);
+      setIsSeeking(false);
 
       // Atualiza a barra de progresso visualmente
       event.target.style.setProperty("--_progress", `${event.target.value}%`);
@@ -136,13 +136,15 @@ const Player = ({ duration, audio, previousSong, nextSong, disablePrevious, disa
       audioPlayer.current.currentTime = 0; // Reseta o tempo
       setCurrentTime(formatTime(0)); // Atualiza o tempo para 00:00
       setProgress(0); // Reseta o progresso
-      audioPlayer.current.pause(); 
-      setIsPlaying(false); 
+      audioPlayer.current.pause();
+      setIsPlaying(false);
     }
   };
 
   // Função para tocar a próxima ou anterior música
-  const handleNextOrPrevious = (nextTrackId) => {
+  const handleNextOrPrevious = async (nextTrackIdPromise) => {
+    const nextTrackId = await nextTrackIdPromise;
+
     if (nextTrackId === undefined) {
       endPlaylist(); // Se não houver próxima música, finaliza a playlist
       return;
@@ -172,7 +174,6 @@ const Player = ({ duration, audio, previousSong, nextSong, disablePrevious, disa
           onClick={disablePrevious ? undefined : () => handleNextOrPrevious(previousSong())}
           style={{ color: disablePrevious ? "#666" : "#fff", cursor: disablePrevious ? "not-allowed" : "pointer" }}
         />
-
         <FontAwesomeIcon
           className="player__icon player__icon--play"
           icon={isPlaying ? faCirclePause : faCirclePlay}

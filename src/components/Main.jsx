@@ -22,7 +22,7 @@ const Main = ({ type }) => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                
+
                 const artists = await getArtists(Infinity);
                 const songs = await getSongs(Infinity);
 
@@ -65,7 +65,7 @@ const Main = ({ type }) => {
                     idPath="/song"
                 />
             )}
-            
+
         </div>
     );
 };

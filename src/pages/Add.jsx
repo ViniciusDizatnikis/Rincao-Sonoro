@@ -33,28 +33,28 @@ const Add = () => {
   //Estado de Carregamento
   const [isloading, setIsLoading] = useState(true);
 
-  
+
   // Buscar artistas ao carregar o componente
   useEffect(() => {
     const fetchData = async () => {
       try {
         const artists = await getArtists(Infinity); // Busca todos os artistas
         setArtists(artists); // Atualiza o estado com a lista de artistas
-      }catch(error){
+      } catch (error) {
         console.error('Erro ao buscar artistas:', error);
-      }finally{
+      } finally {
         setIsLoading(false);
       }
     };
-    
+
     fetchData();
   }, [isAuthenticated]);
-  
+
   // Filtrar artistas com base na pesquisa
   const filteredArtists = search.trim()
-  ? artists.filter((artist) => artist.name.toLowerCase().includes(search.toLowerCase()))
-  : [];
-  
+    ? artists.filter((artist) => artist.name.toLowerCase().includes(search.toLowerCase()))
+    : [];
+
   // Limpar todos os inputs
   const clearInput = () => {
     setImageArtist('');
@@ -68,7 +68,7 @@ const Add = () => {
     setAudio('');
     setSearch('');
   };
-  
+
   // Função para criar um novo artista
   const handleCreateArtist = () => {
     const newArtist = { imageArtist, nameArtist, bannerArtist };
@@ -76,14 +76,14 @@ const Add = () => {
     createArtist(nameArtist, imageArtist, bannerArtist, password); // Chama a API para criar o artista
     clearInput(); // Limpa os campos após a criação
   };
-  
+
   // Função para selecionar um artista da lista
   const handleSelectArtist = (artist) => {
     setSelectedArtist(artist.name); // Define o nome do artista selecionado
     setArtistId(artist.id); // Define o ID do artista selecionado
     setSearch(''); // Limpa o campo de busca
   };
-  
+
   // Função para criar uma nova música
   const handleCreateMusic = () => {
     const newMusic = { imageSong, nameSong, duration, audio, artistId };
@@ -91,12 +91,12 @@ const Add = () => {
     createSong(imageSong, nameSong, duration, audio, artistId, password); // Chama a API para criar a música
     clearInput(); // Limpa os campos após a criação
   };
-  
-  if(!isAuthenticated) {
+
+  if (!isAuthenticated) {
     navigate('/password');
   }
 
-  if(isloading){
+  if (isloading) {
     return <Loading />;
   }
 
