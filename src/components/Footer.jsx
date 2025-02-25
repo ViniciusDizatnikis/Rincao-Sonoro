@@ -17,9 +17,9 @@ const Footer = () => {
         </a>
       </div>
 
-      <a href="/password" className="footer__name">
+      <Link to="/password" className="footer__name">
       <strong>By</strong> <i>Vinicius Dizatnikis</i>
-      </a>
+      </Link>
     </footer>
   );
 };
