@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SongItem from '../components/SongItem';
 
 const SongList = ({ songsArrayFromArtist }) => {
-  const [items, setItems] = useState(5);
+  const [items, setItems] = useState(10);
 
   return (
     <div className="song-list">
