@@ -17,7 +17,7 @@ const Footer = () => {
         </a>
       </div>
 
-      <a href="/passWord" className="footer__name">
+      <a href="/password" className="footer__name">
       <strong>By</strong> <i>Vinicius Dizatnikis</i>
       </a>
     </footer>
