@@ -7,7 +7,7 @@ import Home from './pages/Home'
 import Artist from './pages/Artist'
 import Songs from './pages/Songs'
 import Song from './pages/Song.jsx'
-import PasswordPage from './pages/Password.jsx'
+import Password from './pages/Password.jsx'
 import Add from './pages/Add'
 
 window.addEventListener('beforeunload', () => {
@@ -26,7 +26,7 @@ function App() {
         <Route path="/artist/:id" element={<Artist />} />
         <Route path="/songs" element={<Songs />} />
         <Route path="/song/:id/:type" element={<Song />} />
-        <Route path="/password" element={<PasswordPage />} />
+        <Route path="/password" element={<Password />} />
         <Route path="/add" element={<Add />} />
       </Routes>
     </BrowserRouter>
