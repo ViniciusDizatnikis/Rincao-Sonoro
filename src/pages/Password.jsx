@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
-import "../assets/Css/PasswordPage.css"; 
+import "../assets/Css/passwordPage.css";
 
 const PasswordPage = () => {
   const correctPassword = "DevVinicius"; // Defina a senha correta aqui
