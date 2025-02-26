@@ -143,7 +143,7 @@ const Player = ({ duration, audio, previousSong, nextSong, disablePrevious, disa
 
   // Função para tocar a próxima ou anterior música
   const handleNextOrPrevious = async (nextTrackIdPromise) => {
-    const nextTrackId = await nextTrackIdPromise;
+    const nextTrackId = nextSong != undefined? await nextTrackIdPromise : undefined;
 
     if (nextTrackId === undefined) {
       endPlaylist(); // Se não houver próxima música, finaliza a playlist

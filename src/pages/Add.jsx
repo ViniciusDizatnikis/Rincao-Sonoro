@@ -10,6 +10,8 @@ const Add = () => {
   // Estado para armazenar a senha de autenticação
   const [password, setPassword] = useState('');
 
+  const [update, setUpdate] = useState(false);
+
   // Estados para o Artista
   const [imageArtist, setImageArtist] = useState(''); // URL da imagem do artista
   const [nameArtist, setNameArtist] = useState(''); // Nome do artista
@@ -36,15 +38,16 @@ const Add = () => {
     const fetchData = async () => {
       try {
         const artists = await getArtists(Infinity); // Busca todos os artistas
-        setArtists(artists); 
+        setArtists(artists);
       } catch (error) {
         console.error('Erro ao buscar artistas:', error);
       } finally {
         setIsLoading(false);
+        setUpdate(true)
       }
     };
     fetchData();
-  }, [isAuthenticated]);
+  }, [isAuthenticated, update]);
 
   // Filtra os artistas com base no termo de busca
   const filteredArtists = search.trim()
@@ -71,34 +74,41 @@ const Add = () => {
   };
 
   // Função para criar um novo artista
-  const handleCreateArtist = () => {
+  const handleCreateArtist = async () => {
     if (!password) {
-      showAlert('A senha não pode estar vazia!'); // Exibe alerta se a senha estiver vazia
+      showAlert('A senha não pode estar vazia!'); 
       return;
     }
     const newArtist = { imageArtist, nameArtist, bannerArtist };
     console.log('Artista criado:', JSON.stringify(newArtist, null, 2));
-    createArtist(nameArtist, imageArtist, bannerArtist, password); 
-    clearInput(); 
+  
+    await createArtist(nameArtist, imageArtist, bannerArtist, password);
+  
+    setUpdate((prev) => !prev);
+    clearInput();
   };
+  
 
   // Função para selecionar um artista da lista
   const handleSelectArtist = (artist) => {
-    setSelectedArtist(artist.name); 
-    setArtistId(artist.id); 
-    setSearch(''); 
+    setSelectedArtist(artist.name);
+    setArtistId(artist.id);
+    setSearch('');
   };
 
   // Função para criar uma nova música
-  const handleCreateMusic = () => {
+  const handleCreateMusic = async () => {
     if (!password) {
-      showAlert('A senha não pode estar vazia!'); // Exibe alerta se a senha estiver vazia
+      showAlert('A senha não pode estar vazia!');
       return;
     }
     const newMusic = { imageSong, nameSong, duration, audio, artistId };
     console.log('Música criada:', JSON.stringify(newMusic, null, 2));
-    createSong(imageSong, nameSong, duration, audio, artistId, password); 
-    clearInput(); 
+  
+    await createSong(imageSong, nameSong, duration, audio, artistId, password);
+  
+    setUpdate((prev) => !prev); 
+    clearInput();
   };
 
   // Função para lidar com o evento de carregamento dos metadados do áudio
@@ -107,7 +117,7 @@ const Add = () => {
     const minutes = Math.floor(audioDuration / 60); // Calcula os minutos
     const seconds = Math.floor(audioDuration % 60); // Calcula os segundos
     const formattedDuration = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`; // Formata a duração para mm:ss
-    setDuration(formattedDuration); 
+    setDuration(formattedDuration);
   };
 
   // Redireciona para a página de senha se o usuário não estiver autenticado

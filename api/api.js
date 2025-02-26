@@ -13,7 +13,7 @@ export const createArtist = async (name, image, banner, password) => {
       name,
       image,
       banner,
-      password: 'RincaoSonoroCreatePass'
+      password: password
     });
     return response.data; // Retorna os dados da resposta
   } catch (error) {
