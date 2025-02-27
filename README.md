@@ -39,3 +39,5 @@ O Rincão Sonoro foi criado não apenas para oferecer uma plataforma diferenciad
 - **Banco de dados MongoDB**, explorando soluções NoSQL para armazenar grandes volumes de dados musicais.
 
 Este projeto é um reflexo da minha paixão por tecnologia e música, e espero que seja uma experiência agradável para todos que o utilizarem!
+
+Acesse o projeto aqui: [Rincão Sonoro](https://rincao-sonoro.vercel.app)
