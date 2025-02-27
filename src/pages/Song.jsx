@@ -72,7 +72,7 @@ const Song = () => {
       setCurrentSongIndex(nextIndex);
     }
 
-    return nextSongData != undefined? nextSongData.id : undefined;
+    return nextSongData != undefined ? nextSongData.id : undefined;
   };
 
   const previousSong = async () => {
@@ -85,7 +85,7 @@ const Song = () => {
       setCurrentSongIndex(prevIndex);
     }
 
-    return prevSongData != undefined? prevSongData.id : undefined;
+    return prevSongData != undefined ? prevSongData.id : undefined;
   };
 
   if (!songObj || !artistObj || loading) {
